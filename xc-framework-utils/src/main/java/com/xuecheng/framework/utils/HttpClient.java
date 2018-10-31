@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * http请求客户端
  * 
- * @author Administrator
+ * @author
  * 
  */
 public class HttpClient {
