@@ -101,20 +101,22 @@ public class Snowflake {
 
         if (currTimestamp == lastTimestamp) {
             sequence = (sequence + 1) & maxSequence;
-            if (sequence == 0) { // overflow: greater than max sequence
+            // overflow: greater than max sequence
+            if (sequence == 0) {
                 currTimestamp = waitNextMillis(currTimestamp);
             }
-
-        } else { // reset to 0 for next period/millisecond
+            // reset to 0 for next period/millisecond
+        } else {
             sequence = 0L;
         }
 
         // track and memo the time stamp last snowflake ID generated
         lastTimestamp = currTimestamp;
 
-        return ((currTimestamp - epoch) << timestampShift) | //
-                (datacenterId << datacenterIdShift) | //
-                (workerId << workerIdShift) | // new line for nice looking
+        return ((currTimestamp - epoch) << timestampShift) |
+                (datacenterId << datacenterIdShift) |
+                // new line for nice looking
+                (workerId << workerIdShift) |
                 sequence;
     }
 
@@ -239,7 +241,7 @@ public class Snowflake {
     public static void main(String[] args) {
         Snowflake idWorker = new Snowflake(1, 2);
         Snowflake idWorker2 = new Snowflake(1, 3);
-        for(int i=0;i<10;i++){
+        for(int i = 0;i < 10; i++){
             long l = idWorker.nextId();
             long l2 = idWorker2.nextId();
             System.out.println(l);

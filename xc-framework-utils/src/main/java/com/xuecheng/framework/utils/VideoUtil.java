@@ -104,7 +104,8 @@ public class VideoUtil {
                     finished = true;
 
                 } catch (IllegalThreadStateException e) {
-                    Thread.currentThread().sleep(1000);//休眠1秒
+                    //休眠1秒
+                    Thread.currentThread().sleep(1000);
                     retry++;
                 }
             }
