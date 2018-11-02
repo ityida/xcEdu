@@ -6,6 +6,7 @@ import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
+import com.xuecheng.manage_cms.service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +24,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/cms/page")
 public class CmsPageController implements CmsPageControllerApi {
-//    @Autowired
-//    PageService pageService;
+    @Autowired
+    private PageService pageService;
 
     @Override
     @GetMapping("/list/{page}/{size}")
@@ -34,7 +35,7 @@ public class CmsPageController implements CmsPageControllerApi {
 
         //暂时用静态数据
         //定义queryResult
-        QueryResult<CmsPage> queryResult =new QueryResult<>();
+       /* QueryResult<CmsPage> queryResult =new QueryResult<>();
         List<CmsPage> list = new ArrayList<>();
         CmsPage cmsPage = new CmsPage();
         cmsPage.setPageName("测试页面");
@@ -43,8 +44,8 @@ public class CmsPageController implements CmsPageControllerApi {
         queryResult.setTotal(1);
 
         QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS,queryResult);
-        return queryResponseResult;
+        return queryResponseResult;*/
         //调用service
-//        return null;
+        return pageService.findList(page,size,queryPageRequest);
     }
 }
