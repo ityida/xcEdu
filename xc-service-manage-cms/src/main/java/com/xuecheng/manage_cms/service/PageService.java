@@ -2,6 +2,7 @@ package com.xuecheng.manage_cms.service;
 
 import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
+import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
@@ -74,5 +75,26 @@ public class PageService {
         queryResult.setTotal(all.getTotalElements());
         QueryResponseResult queryResponseResult = new QueryResponseResult(CommonCode.SUCCESS, queryResult);
         return queryResponseResult;
+    }
+
+    /**
+     * 新增页面
+     * @param cmsPage
+     * @return
+     */
+    public CmsPageResult add(CmsPage cmsPage){
+        //校验页面名称、站点Id、页面webpath的唯一性
+        //根据页面名称、站点Id、页面webpath去cms_page集合，
+        // 如果查到说明此页面已经存在，如果查询不到再继续添加
+        CmsPage cms = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
+
+        if(cms == null){
+            cmsPage.setPageId(null);
+            //调用dao新增页面
+            cmsPageRepository.save(cmsPage);
+            return new CmsPageResult(CommonCode.SUCCESS,cmsPage);
+        }
+        //添加失败
+        return new CmsPageResult(CommonCode.FAIL,null);
     }
 }
