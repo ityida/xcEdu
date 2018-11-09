@@ -2,7 +2,9 @@ package com.xuecheng.manage_cms.service;
 
 import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
+import com.xuecheng.framework.domain.cms.response.CmsCode;
 import com.xuecheng.framework.domain.cms.response.CmsPageResult;
+import com.xuecheng.framework.exception.ExceptionCast;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
@@ -86,19 +88,23 @@ public class PageService {
      * @return
      */
     public CmsPageResult add(CmsPage cmsPage){
+        if(cmsPage == null){
+            //抛出异常，非法参数异常..指定异常信息的内容
+//            ExceptionCast.cast("传过来的页面信息为空");
+        }
         //校验页面名称、站点Id、页面webpath的唯一性
         //根据页面名称、站点Id、页面webpath去cms_page集合，
         // 如果查到说明此页面已经存在，如果查询不到再继续添加
         CmsPage cms = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
-
-        if(cms == null){
-            cmsPage.setPageId(null);
-            //调用dao新增页面
-            cmsPageRepository.save(cmsPage);
-            return new CmsPageResult(CommonCode.SUCCESS,cmsPage);
+        if(cms != null){
+            //页面已经存在
+            //抛出异常，异常内容就是页面已经存在
+            ExceptionCast.cast(CmsCode.CMS_ADDPAGE_EXISTSNAME);
         }
-        //添加失败
-        return new CmsPageResult(CommonCode.FAIL,null);
+        cmsPage.setPageId(null);
+        //调用dao新增页面
+        cmsPageRepository.save(cmsPage);
+        return new CmsPageResult(CommonCode.SUCCESS,cmsPage);
     }
 
 
