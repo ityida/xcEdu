@@ -11,8 +11,8 @@
 <body>
 <div class="banner-roll">
     <div class="banner-item">
-    <#--<div class="item" style="background-image: url(http://localhost/img/widget-bannerB.jpg);"></div>-->
-    <#--<div class="item" style="background-image: url(http://localhost/img/widget-bannerA.jpg);"></div>-->
+    <#--<div class="item" style="background-image: url(../img/widget-bannerB.jpg);"></div>-->
+    <#--<div class="item" style="background-image: url(../localhost/img/widget-bannerA.jpg);"></div>-->
     <#--<div class="item" style="background-image: url(http://localhost/img/widget-banner3.png);"></div>-->
     <#--<div class="item" style="background-image: url(http://localhost/img/widget-bannerB.jpg);"></div>-->
     <#--<div class="item" style="background-image: url(http://localhost/img/widget-bannerA.jpg);"></div>-->

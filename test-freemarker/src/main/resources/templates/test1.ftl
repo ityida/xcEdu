@@ -37,7 +37,7 @@ Hello ${name}!
 遍历输出两个学生信息：<br/>
 <table>
     <tr>
-        <td>序号</td>
+        <td>序1号</td>
         <td>姓名</td>
         <td>年龄</td>
         <td>钱包</td>
@@ -54,7 +54,7 @@ Hello ${name}!
 
 ${point?c}
 <br/>
-<#assign text="{'bank':'工商银行','account':'10101920201920212'}" />
+<#assign text="{'bank':'工商银行','account':'1010121219202019202120000'}" />
 <#assign data=text?eval />
 开户行：${data.bank}  账号：${data.account}
 
