@@ -48,4 +48,9 @@ public class CmsSite {
      */
     private Date siteCreateTime;
 
+    /**
+     * 站点物理路径
+     */
+    private String sitePhysicalPath;
+
 }
