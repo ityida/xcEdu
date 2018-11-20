@@ -12,7 +12,6 @@
                 <result column="three_pname" property="pname"></result>
             </collection>
         </collection>
-
     </resultMap>
 
     <select id="selectList" parameterType="java.lang.String"
