@@ -1,9 +1,13 @@
 package com.xuecheng.manage_course.controller;
 
 import com.xuecheng.api.course.CourseControllerApi;
+import com.xuecheng.framework.domain.course.CourseBase;
+import com.xuecheng.framework.domain.course.CourseMarket;
 import com.xuecheng.framework.domain.course.Teachplan;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
 import com.xuecheng.framework.domain.course.request.CourseListRequest;
+import com.xuecheng.framework.domain.course.response.AddCourseResult;
+import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_course.service.CourseService;
@@ -47,6 +51,7 @@ public class CourseController implements CourseControllerApi {
 
     /**
      * 查询我的课程列表
+     *
      * @param page
      * @param size
      * @param courseListRequest
@@ -55,8 +60,76 @@ public class CourseController implements CourseControllerApi {
     @Override
     @GetMapping("/coursebase/list/{page}/{size}")
     public QueryResponseResult findCourseList(@PathVariable("page") int page,
-                                                          @PathVariable("size")int size,
-                                                          CourseListRequest courseListRequest) {
-        return courseService.findCourseList(page,size,courseListRequest);
+                                              @PathVariable("size") int size,
+                                              CourseListRequest courseListRequest) {
+        return courseService.findCourseList(page, size, courseListRequest);
+    }
+
+    /**
+     * 增加课程
+     *
+     * @param courseBase
+     * @return
+     */
+    @Override
+    @PostMapping("/coursebase/add")
+    public AddCourseResult addCourseBase(@RequestBody CourseBase courseBase) {
+        return courseService.addCourseBase(courseBase);
+    }
+
+    /**
+     * 根据id查询课程
+     *
+     * @param courseId
+     * @return
+     * @throws RuntimeException
+     */
+    @Override
+    @GetMapping("/coursebase/get/{courseId}")
+    public CourseBase getCourseBaseById(@PathVariable("courseId") String courseId) throws RuntimeException {
+        return courseService.getCoursebaseById(courseId);
+    }
+
+    /**
+     * 跟新课程
+     *
+     * @param id
+     * @param courseBase
+     * @return
+     */
+    @Override
+    @PutMapping("/coursebase/update/{id}")
+    public ResponseResult updateCourseBase(@PathVariable("id") String id, @RequestBody CourseBase courseBase) {
+        return courseService.updateCoursebase(id, courseBase);
+    }
+
+    /**
+     * 查询课程营销信息
+     *
+     * @param courseId
+     * @return
+     */
+    @Override
+    @GetMapping("/coursemarket/get/{courseId}")
+    public CourseMarket getCourseMarketById(@PathVariable("courseId") String courseId) {
+        return courseService.getCourseMarketById(courseId);
+    }
+
+    /**
+     * 更新课程营销信息
+     *
+     * @param id
+     * @param courseMarket
+     * @return
+     */
+    @Override
+    @PostMapping("/coursemarket/update/{id}")
+    public ResponseResult updateCourseMarket(@PathVariable("id") String id, @RequestBody CourseMarket courseMarket) {
+        CourseMarket courseMarket_u = courseService.updateCourseMarket(id, courseMarket);
+        if (courseMarket_u != null) {
+            return new ResponseResult(CommonCode.SUCCESS);
+        } else {
+            return new ResponseResult(CommonCode.FAIL);
+        }
     }
 }
