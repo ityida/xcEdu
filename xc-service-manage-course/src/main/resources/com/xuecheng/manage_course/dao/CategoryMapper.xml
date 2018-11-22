@@ -10,7 +10,7 @@
         <result property="orderby" column="one_orderby"/>
         <result property="parentid" column="one_parentid"/>
         <collection  property="children" ofType="com.xuecheng.framework.domain.course.ext.CategoryNode">
-            <id property ="id" column="one_id"/>
+            <id property ="id" column="two_id"/>
             <result property="name" column="two_name"/>
             <result property="label" column="two_label"/>
             <result property="isshow" column="two_isshow"/>
@@ -27,7 +27,6 @@
                 <result property="parentid" column="three_parentid"/>
             </collection>
         </collection>
-
     </resultMap>
 
     <select id="selectList" resultMap="categoryMap" >
