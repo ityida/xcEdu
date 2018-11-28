@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.xuecheng.framework.domain.course.CourseBase;
 import com.xuecheng.framework.domain.course.CourseMarket;
+import com.xuecheng.framework.domain.course.CoursePic;
 import com.xuecheng.framework.domain.course.Teachplan;
 import com.xuecheng.framework.domain.course.ext.CourseInfo;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
@@ -41,6 +42,8 @@ public class CourseService {
     CourseMapper courseMapper;
     @Autowired
     CourseMarketRepository courseMarketRepository;
+    @Autowired
+    CoursePicRepository coursePicRepository;
 
     /**
      * 课程计划查询
@@ -224,7 +227,7 @@ public class CourseService {
      */
     public CourseMarket getCourseMarketById(String courseId) {
         Optional<CourseMarket> optional = courseMarketRepository.findById(courseId);
-        if (!optional.isPresent()) {
+        if (optional.isPresent()) {
             return optional.get();
         }
         return null;
@@ -240,6 +243,7 @@ public class CourseService {
     @Transactional
     public CourseMarket updateCourseMarket(String id, CourseMarket courseMarket) {
         CourseMarket one = this.getCourseMarketById(id);
+        System.out.println(one);
         if (one != null) {
             one.setCharge(courseMarket.getCharge());
             //课程有效期，开始时间
@@ -256,10 +260,66 @@ public class CourseService {
             BeanUtils.copyProperties(courseMarket, one);
             //设置课程id
             one.setId(id);
+            System.out.println(one);
             courseMarketRepository.save(one);
         }
         return one;
     }
 
 
+    /**
+     * 向课程管理数据添加课程与图片的关联信息
+     *
+     * @param courseId
+     * @param pic
+     * @return
+     */
+    public ResponseResult addCoursePic(String courseId, String pic) {
+        //课程图片信息
+        CoursePic coursePic = null;
+        //查询课程图片
+        Optional<CoursePic> picOptional = coursePicRepository.findById(courseId);
+        if (picOptional.isPresent()) {
+            coursePic = picOptional.get();
+        }
+        if (coursePic == null) {
+            coursePic = new CoursePic();
+        }
+        coursePic.setPic(pic);
+        coursePic.setCourseid(courseId);
+        coursePicRepository.save(coursePic);
+        return new ResponseResult(CommonCode.SUCCESS);
+    }
+
+    /**
+     * 查询课程图片
+     *
+     * @param courseId
+     * @return
+     */
+    public CoursePic findCoursePic(String courseId) {
+        //查询课程图片
+        Optional<CoursePic> picOptional = coursePicRepository.findById(courseId);
+        if (picOptional.isPresent()) {
+            CoursePic coursePic = picOptional.get();
+            return coursePic;
+        }
+        return null;
+    }
+
+    /**
+     * 删除课程图片
+     *
+     * @param courseId
+     * @return
+     */
+    @Transactional
+    public ResponseResult deleteCoursePic(String courseId) {
+        //执行删除
+        long result = coursePicRepository.deleteByCourseid(courseId);
+        if (result > 0) {
+            return new ResponseResult(CommonCode.SUCCESS);
+        }
+        return new ResponseResult(CommonCode.FAIL);
+    }
 }
