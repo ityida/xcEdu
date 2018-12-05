@@ -19,6 +19,7 @@
         <module name="xc-service-manage-cms" />
         <module name="xc-service-manage-cms-client" />
         <module name="xc-service-manage-course" />
+        <module name="xc-service-search" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -36,6 +37,7 @@
       <module name="xc-service-manage-cms" target="1.8" />
       <module name="xc-service-manage-cms-client" target="1.8" />
       <module name="xc-service-manage-course" target="1.8" />
+      <module name="xc-service-search" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
