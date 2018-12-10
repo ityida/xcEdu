@@ -10,6 +10,7 @@ import java.util.Date;
 
 /**
  * Created by admin on 2018/2/10.
+ * @author zhangyifei
  */
 @Data
 @ToString
@@ -30,15 +31,27 @@ public class CoursePub implements Serializable {
     private String studymodel;
     private String teachmode;
     private String description;
-    private String pic;//图片
-    private Date timestamp;//时间戳
+    /**
+     * 图片
+     */
+    private String pic;
+    /**
+     * 时间戳
+     */
+    private Date timestamp;
     private String charge;
     private String valid;
     private String qq;
-    private Float price;
-    private Float price_old;
+    private Double price;
+    private Double price_old;
     private String expires;
-    private String teachplan;//课程计划
+    /**
+     * 课程计划
+     */
+    private String teachplan;
+    /**
+     * 课程发布时间
+     */
     @Column(name="pub_time")
-    private String pubTime;//课程发布时间
+    private String pubTime;
 }
