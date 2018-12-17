@@ -16,15 +16,21 @@ public class RabbitMQConfig {
 
     public static final String EX_MEDIA_PROCESSTASK = "ex_media_processor";
 
-    //视频处理队列
+    /**
+     *视频处理队列
+     */
     @Value("${xc-service-manage-media.mq.queue-media-video-processor}")
     public  String queue_media_video_processtask;
 
-    //视频处理路由
+    /**
+     *视频处理路由
+     */
     @Value("${xc-service-manage-media.mq.routingkey-media-video}")
     public  String routingkey_media_video;
 
-    //消费者并发数量
+    /**
+     *消费者并发数量
+     */
     public static final int DEFAULT_CONCURRENT = 10;
 
 
@@ -36,12 +42,17 @@ public class RabbitMQConfig {
     public Exchange EX_MEDIA_VIDEOTASK() {
         return ExchangeBuilder.directExchange(EX_MEDIA_PROCESSTASK).durable(true).build();
     }
-    //声明队列
+
+    /**
+     * 声明队列
+     * @return
+     */
     @Bean("queue_media_video_processtask")
     public Queue QUEUE_PROCESSTASK() {
         Queue queue = new Queue(queue_media_video_processtask,true,false,true);
         return queue;
     }
+
     /**
      * 绑定队列到交换机 .
      * @param queue    the queue
