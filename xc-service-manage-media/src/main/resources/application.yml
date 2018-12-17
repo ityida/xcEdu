@@ -9,7 +9,7 @@ spring:
       uri:  mongodb://localhost
       database: xc_media
 xc-service-manage-media:
-  upload-location: F:/develop/video/
+  upload-location: D:/##myFile&&/##learning/CMS/avi/
 eureka:
   client:
     registerWithEureka: true #服务注册开关
