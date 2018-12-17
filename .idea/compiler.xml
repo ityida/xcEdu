@@ -20,6 +20,7 @@
         <module name="xc-service-manage-cms-client" />
         <module name="xc-service-manage-course" />
         <module name="xc-service-manage-media" />
+        <module name="xc-service-manage-media-processor" />
         <module name="xc-service-search" />
       </profile>
     </annotationProcessing>
@@ -39,6 +40,7 @@
       <module name="xc-service-manage-cms-client" target="1.8" />
       <module name="xc-service-manage-course" target="1.8" />
       <module name="xc-service-manage-media" target="1.8" />
+      <module name="xc-service-manage-media-processor" target="1.8" />
       <module name="xc-service-search" target="1.8" />
     </bytecodeTargetLevel>
   </component>

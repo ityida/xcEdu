@@ -90,6 +90,7 @@ public class TestFile {
                 raf_write.write(b, 0, len);
             }
             raf_read.close();
+            System.out.println("");
         }
         raf_write.close();
     }
