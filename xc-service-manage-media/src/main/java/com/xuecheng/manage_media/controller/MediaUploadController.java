@@ -37,18 +37,44 @@ public class MediaUploadController implements MediaUploadControllerApi {
     }
 
 
+    /**
+     * 校验分块文件是否存在
+     * @param fileMd5
+     * @param chunk
+     * @param chunkSize
+     * @return
+     */
     @Override
+    @PostMapping("/checkchunk")
     public CheckChunkResult checkchunk(String fileMd5, Integer chunk, Integer chunkSize) {
-        return null;
+        return mediaUploadService.checkchunk(fileMd5,chunk,chunkSize);
     }
 
+    /**
+     * 上传分块
+     * @param file
+     * @param fileMd5
+     * @param chunk
+     * @return
+     */
     @Override
+    @PostMapping("/uploadchunk")
     public ResponseResult uploadchunk(MultipartFile file, String fileMd5, Integer chunk) {
-        return null;
+        return mediaUploadService.uploadchunk(file,fileMd5,chunk);
     }
 
+    /**
+     * 合并分块
+     * @param fileMd5
+     * @param fileName
+     * @param fileSize
+     * @param mimetype
+     * @param fileExt
+     * @return
+     */
     @Override
+    @PostMapping("/mergechunks")
     public ResponseResult mergechunks(String fileMd5, String fileName, Long fileSize, String mimetype, String fileExt) {
-        return null;
+        return mediaUploadService.mergechunks(fileMd5,fileName,fileSize, mimetype,fileExt);
     }
 }
