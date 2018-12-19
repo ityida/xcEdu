@@ -12,7 +12,10 @@ import java.util.List;
  */
 public class HlsVideoUtil extends  VideoUtil {
 
-    String ffmpeg_path = "D:\\Program Files\\ffmpeg-20180227-fa0c9d6-win64-static\\bin\\ffmpeg.exe";//ffmpeg的安装位置
+    /**
+     * ffmpeg的安装位置
+     */
+    String ffmpeg_path = "C:\\mysystem\\ffmpeg\\ffmpeg-20180227-fa0c9d6-win64-static\\bin\\ffmpeg.exe";
     String video_path = "D:\\BaiduNetdiskDownload\\test1.avi";
     String m3u8_name = "test1.m3u8";
     String m3u8folder_path = "D:/BaiduNetdiskDownload/Movies/test1/";
@@ -102,7 +105,7 @@ public class HlsVideoUtil extends  VideoUtil {
      * @return ts列表
      */
     public List<String> get_ts_list() {
-//        String m3u8_name = video_name.substring(0, video_name.lastIndexOf("."))+".m3u8";
+        //String m3u8_name = video_name.substring(0, video_name.lastIndexOf("."))+".m3u8";
         List<String> fileList = new ArrayList<String>();
         List<String> tsList = new ArrayList<String>();
         String m3u8file_path =m3u8folder_path + m3u8_name;
@@ -130,7 +133,7 @@ public class HlsVideoUtil extends  VideoUtil {
             }
         }
         if (bottomline.contains("#EXT-X-ENDLIST")) {
-//            fileList.add(hls_relativepath+m3u8_name);
+            //fileList.add(hls_relativepath+m3u8_name);
             fileList.addAll(tsList);
             return fileList;
         }
