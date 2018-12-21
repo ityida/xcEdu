@@ -17,9 +17,10 @@ public class Producer04_topics {
     //队列名称
     private static final String QUEUE_INFORM_EMAIL = "queue_inform_email";
     private static final String QUEUE_INFORM_SMS = "queue_inform_sms";
-    private static final String EXCHANGE_TOPICS_INFORM="exchange_topics_inform";
-    private static final String ROUTINGKEY_EMAIL="inform.#.email.#";
-    private static final String ROUTINGKEY_SMS="inform.#.sms.#";
+    private static final String EXCHANGE_TOPICS_INFORM = "exchange_topics_inform";
+    private static final String ROUTINGKEY_EMAIL = "inform.#.email.#";
+    private static final String ROUTINGKEY_SMS = "inform.#.sms.#";
+
     public static void main(String[] args) {
         //通过连接工厂创建新的连接和mq建立连接
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -47,8 +48,8 @@ public class Producer04_topics {
              * 4、autoDelete 自动删除，队列不再使用时是否自动删除此队列，如果将此参数和exclusive参数设置为true就可以实现临时队列（队列不用了就自动删除）
              * 5、arguments 参数，可以设置一个队列的扩展参数，比如：可设置存活时间
              */
-            channel.queueDeclare(QUEUE_INFORM_EMAIL,true,false,false,null);
-            channel.queueDeclare(QUEUE_INFORM_SMS,true,false,false,null);
+            channel.queueDeclare(QUEUE_INFORM_EMAIL, true, false, false, null);
+            channel.queueDeclare(QUEUE_INFORM_SMS, true, false, false, null);
             //声明一个交换机
             //参数：String exchange, String type
             /**
@@ -69,8 +70,8 @@ public class Producer04_topics {
              * 2、exchange 交换机名称
              * 3、routingKey 路由key，作用是交换机根据路由key的值将消息转发到指定的队列中，在发布订阅模式中调协为空字符串
              */
-            channel.queueBind(QUEUE_INFORM_EMAIL,EXCHANGE_TOPICS_INFORM,ROUTINGKEY_EMAIL);
-            channel.queueBind(QUEUE_INFORM_SMS,EXCHANGE_TOPICS_INFORM,ROUTINGKEY_SMS);
+            channel.queueBind(QUEUE_INFORM_EMAIL, EXCHANGE_TOPICS_INFORM, ROUTINGKEY_EMAIL);
+            channel.queueBind(QUEUE_INFORM_SMS, EXCHANGE_TOPICS_INFORM, ROUTINGKEY_SMS);
             //发送消息
             //参数：String exchange, String routingKey, BasicProperties props, byte[] body
             /**
@@ -80,23 +81,23 @@ public class Producer04_topics {
              * 3、props，消息的属性
              * 4、body，消息内容
              */
-            for(int i=0;i<5;i++){
+            for (int i = 0; i < 5; i++) {
                 //发送消息的时候指定routingKey
                 String message = "send email inform message to user";
-                channel.basicPublish(EXCHANGE_TOPICS_INFORM,"inform.email",null,message.getBytes());
-                System.out.println("send to mq "+message);
+                channel.basicPublish(EXCHANGE_TOPICS_INFORM, "inform.email", null, message.getBytes());
+                System.out.println("send to mq " + message);
             }
-            for(int i=0;i<5;i++){
+            for (int i = 0; i < 5; i++) {
                 //发送消息的时候指定routingKey
                 String message = "send sms inform message to user";
-                channel.basicPublish(EXCHANGE_TOPICS_INFORM,"inform.sms",null,message.getBytes());
-                System.out.println("send to mq "+message);
+                channel.basicPublish(EXCHANGE_TOPICS_INFORM, "inform.sms", null, message.getBytes());
+                System.out.println("send to mq " + message);
             }
-            for(int i=0;i<5;i++){
+            for (int i = 0; i < 5; i++) {
                 //发送消息的时候指定routingKey
                 String message = "send sms and email inform message to user";
-                channel.basicPublish(EXCHANGE_TOPICS_INFORM,"inform.sms.email",null,message.getBytes());
-                System.out.println("send to mq "+message);
+                channel.basicPublish(EXCHANGE_TOPICS_INFORM, "inform.sms.email", null, message.getBytes());
+                System.out.println("send to mq " + message);
             }
 
 

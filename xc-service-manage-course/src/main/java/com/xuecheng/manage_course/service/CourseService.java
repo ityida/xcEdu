@@ -443,6 +443,7 @@ public class CourseService {
 
     /**
      * 课程发布
+     *
      * @param id
      * @return
      */
@@ -456,9 +457,9 @@ public class CourseService {
         //站点id
         cmsPage.setSiteId(publish_siteId);
         //数据模型url
-        cmsPage.setDataUrl(publish_dataUrlPre+id);
+        cmsPage.setDataUrl(publish_dataUrlPre + id);
         //页面名称
-        cmsPage.setPageName(id+".html");
+        cmsPage.setPageName(id + ".html");
         //页面别名，就是课程名称
         cmsPage.setPageAliase(courseBaseById.getName());
         //页面物理路径
@@ -469,31 +470,32 @@ public class CourseService {
         cmsPage.setTemplateId(publish_templateId);
         //调用cms一键发布接口将课程详情页面发布到服务器
         CmsPostPageResult cmsPostPageResult = cmsPageClient.postPageQuick(cmsPage);
-        if(!cmsPostPageResult.isSuccess()){
-            return new CoursePublishResult(CommonCode.FAIL,null);
+        if (!cmsPostPageResult.isSuccess()) {
+            return new CoursePublishResult(CommonCode.FAIL, null);
         }
 
         //保存课程的发布状态为“已发布”
         CourseBase courseBase = this.saveCoursePubState(id);
-        if(courseBase == null){
-            return new CoursePublishResult(CommonCode.FAIL,null);
+        if (courseBase == null) {
+            return new CoursePublishResult(CommonCode.FAIL, null);
         }
 
         //保存课程索引信息
         //先创建一个coursePub对象
         CoursePub coursePub = createCoursePub(id);
         //将coursePub对象保存到数据库
-        saveCoursePub(id,coursePub);
-        
+        saveCoursePub(id, coursePub);
+
         //缓存课程的信息
         //...
         //得到页面的url
         String pageUrl = cmsPostPageResult.getPageUrl();
-        return new CoursePublishResult(CommonCode.SUCCESS,pageUrl);
+        return new CoursePublishResult(CommonCode.SUCCESS, pageUrl);
     }
 
     /**
      * 创建coursePub对象
+     *
      * @param id
      * @return
      */
@@ -502,22 +504,22 @@ public class CourseService {
 
         //根据课程id查询course_base
         Optional<CourseBase> baseOptional = courseBaseRepository.findById(id);
-        if(baseOptional.isPresent()){
+        if (baseOptional.isPresent()) {
             CourseBase courseBase = baseOptional.get();
             //将courseBase属性拷贝到CoursePub中
-            BeanUtils.copyProperties(courseBase,coursePub);
+            BeanUtils.copyProperties(courseBase, coursePub);
         }
 
         //查询课程图片
         Optional<CoursePic> picOptional = coursePicRepository.findById(id);
-        if(picOptional.isPresent()){
+        if (picOptional.isPresent()) {
             CoursePic coursePic = picOptional.get();
             BeanUtils.copyProperties(coursePic, coursePub);
         }
 
         //课程营销信息
         Optional<CourseMarket> marketOptional = courseMarketRepository.findById(id);
-        if(marketOptional.isPresent()){
+        if (marketOptional.isPresent()) {
             CourseMarket courseMarket = marketOptional.get();
             BeanUtils.copyProperties(courseMarket, coursePub);
         }
@@ -533,22 +535,23 @@ public class CourseService {
 
     /**
      * 将coursePub对象保存到数据库
+     *
      * @param id
      * @param coursePub
      * @return
      */
-    private CoursePub saveCoursePub(String id,CoursePub coursePub){
+    private CoursePub saveCoursePub(String id, CoursePub coursePub) {
         CoursePub coursePubNew = null;
         //根据课程id查询coursePub
         Optional<CoursePub> coursePubOptional = coursePubRepository.findById(id);
-        if(coursePubOptional.isPresent()){
+        if (coursePubOptional.isPresent()) {
             coursePubNew = coursePubOptional.get();
-        }else{
+        } else {
             coursePubNew = new CoursePub();
         }
 
         //将coursePub对象中的信息保存到coursePubNew中
-        BeanUtils.copyProperties(coursePub,coursePubNew);
+        BeanUtils.copyProperties(coursePub, coursePubNew);
         coursePubNew.setId(id);
         //时间戳,给logstach使用
         coursePubNew.setTimestamp(new Date());
@@ -559,12 +562,14 @@ public class CourseService {
         coursePubRepository.save(coursePubNew);
         return coursePubNew;
     }
+
     /**
      * 更新课程状态为已发布 202002
+     *
      * @param courseId
      * @return
      */
-    private CourseBase  saveCoursePubState(String courseId){
+    private CourseBase saveCoursePubState(String courseId) {
         CourseBase courseBaseById = this.findCourseBaseById(courseId);
         courseBaseById.setStatus("202002");
         courseBaseRepository.save(courseBaseById);
