@@ -27,8 +27,11 @@ public class ManageCourseApplication {
         SpringApplication.run(ManageCourseApplication.class, args);
     }
 
+    /**
+     * 开始客户端负载均衡
+     * @return
+     */
     @Bean
-    //开始客户端负载均衡
     @LoadBalanced
     public RestTemplate restTemplate(){
         return new RestTemplate(new OkHttp3ClientHttpRequestFactory());
