@@ -16,6 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Order(-1)
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * 这边配置的地址是不需要登录就可以访问
+     * @param web
+     * @throws Exception
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/userlogin","/userlogout","/userjwt");
