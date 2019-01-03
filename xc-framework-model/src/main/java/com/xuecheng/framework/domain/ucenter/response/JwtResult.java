@@ -17,5 +17,6 @@ public class JwtResult extends ResponseResult {
         super(resultCode);
         this.jwt = jwt;
     }
+
     private String jwt;
 }

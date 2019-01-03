@@ -1,4 +1,4 @@
-spring:
+#spring:
 server:
   port: ${PORT:50101} #服务端口
 spring:

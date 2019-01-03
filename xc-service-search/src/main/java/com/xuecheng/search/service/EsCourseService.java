@@ -305,7 +305,7 @@ public class EsCourseService {
         QueryResult<TeachplanMediaPub> queryResult = new QueryResult<>();
         queryResult.setList(teachplanMediaPubList);
         queryResult.setTotal(total);
-        QueryResponseResult<TeachplanMediaPub> queryResponseResult = new QueryResponseResult<TeachplanMediaPub>(CommonCode.SUCCESS,queryResult);
+        QueryResponseResult<TeachplanMediaPub> queryResponseResult = new QueryResponseResult<>(CommonCode.SUCCESS, queryResult);
         return queryResponseResult;
     }
 }

@@ -73,6 +73,26 @@ public class AuthService {
         return authToken;
     }
 
+    /**
+     * 从redis查询令牌
+     *
+     * @param token
+     * @return
+     */
+    public AuthToken getUserToken(String token) {
+        String key = "user_token:" + token;
+        //从redis中取到令牌信息
+        String value = stringRedisTemplate.opsForValue().get(key);
+        //转成对象
+        try {
+            AuthToken authToken = JSON.parseObject(value, AuthToken.class);
+            return authToken;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
     /**
      * 存储到令牌到redis

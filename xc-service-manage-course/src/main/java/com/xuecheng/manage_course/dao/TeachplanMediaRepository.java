@@ -10,9 +10,10 @@ import java.util.List;
  * @Author:zhangyifei
  * @Date:2018/11/19
  */
-public interface TeachplanMediaRepository extends JpaRepository<TeachplanMedia,String> {
+public interface TeachplanMediaRepository extends JpaRepository<TeachplanMedia, String> {
     /**
      * 根据课程id查询列表
+     *
      * @param courseId
      * @return
      */

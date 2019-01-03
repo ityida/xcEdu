@@ -26,7 +26,9 @@ public class PreViewCourse implements Serializable{
     private CourseMarket courseMarket;
     private CoursePic coursePic;
     private TeachplanNode teachplan;
-    //课程统计信息
+    /**
+     * 课程统计信息
+     */
     private ReportCourse reportCourse;
 
 }

@@ -56,23 +56,27 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //取出正确密码（hash值）
         String password = userext.getPassword();
         //这里暂时使用静态密码
-//       String password ="123";
+        //String password ="123";
         //用户权限，这里暂时使用静态数据，最终会从数据库读取
         //从数据库获取权限
         List<XcMenu> permissions = userext.getPermissions();
         List<String> user_permission = new ArrayList<>();
         permissions.forEach(item -> user_permission.add(item.getCode()));
-//        user_permission.add("course_get_baseinfo");
-//        user_permission.add("course_find_pic");
+        //user_permission.add("course_get_baseinfo");
+        //user_permission.add("course_find_pic");
         String user_permission_string = StringUtils.join(user_permission.toArray(), ",");
         UserJwt userDetails = new UserJwt(username,
                 password,
                 AuthorityUtils.commaSeparatedStringToAuthorityList(user_permission_string));
         userDetails.setId(userext.getId());
-        userDetails.setUtype(userext.getUtype());//用户类型
-        userDetails.setCompanyId(userext.getCompanyId());//所属企业
-        userDetails.setName(userext.getName());//用户名称
-        userDetails.setUserpic(userext.getUserpic());//用户头像
+        //用户类型
+        userDetails.setUtype(userext.getUtype());
+        //所属企业
+        userDetails.setCompanyId(userext.getCompanyId());
+        //用户名称
+        userDetails.setName(userext.getName());
+        //用户头像
+        userDetails.setUserpic(userext.getUserpic());
        /* UserDetails userDetails = new org.springframework.security.core.userdetails.User(username,
                 password,
                 AuthorityUtils.commaSeparatedStringToAuthorityList(""));*/
