@@ -109,6 +109,19 @@ public class AuthService {
         return expire > 0;
     }
 
+
+    /**
+     * 删除token
+     *
+     * @param access_token
+     * @return
+     */
+    public boolean delToken(String access_token) {
+        String key = "user_token:" + access_token;
+        stringRedisTemplate.delete(key);
+        return true;
+    }
+
     /**
      * 申请令牌
      *
