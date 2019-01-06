@@ -1,4 +1,4 @@
-package com.xuecheng.manage_course.config;
+package com.xuecheng.manage_cms.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -76,7 +76,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 //下边的路径放行
                 .antMatchers("/v2/api-docs", "/swagger-resources/configuration/ui",
                         "/swagger-resources", "/swagger-resources/configuration/security",
-                        "/swagger-ui.html", "/webjars/**","/course/coursepic/list/**","/course/courseview/**").permitAll()
+                        "/swagger-ui.html", "/webjars/**","/course/coursepic/list/**").permitAll()
                 .anyRequest().authenticated();
     }
 }
