@@ -45,7 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         //远程调用用户中心根据账号查询用户信息
         XcUserExt userext = userClient.getUserext(username);
-        if(userext == null){
+        if (userext == null) {
             //返回空给spring security表示用户不存在
             return null;
         }
@@ -60,6 +60,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //用户权限，这里暂时使用静态数据，最终会从数据库读取
         //从数据库获取权限
         List<XcMenu> permissions = userext.getPermissions();
+        if (permissions == null) {
+            permissions = new ArrayList<>();
+        }
         List<String> user_permission = new ArrayList<>();
         permissions.forEach(item -> user_permission.add(item.getCode()));
         //user_permission.add("course_get_baseinfo");

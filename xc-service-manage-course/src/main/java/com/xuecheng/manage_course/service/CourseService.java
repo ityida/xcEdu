@@ -168,12 +168,16 @@ public class CourseService {
      * @param courseListRequest
      * @return
      */
-    public QueryResponseResult findCourseList(int page,
+    public QueryResponseResult findCourseList(String company_id,
+                                              int page,
                                               int size,
                                               CourseListRequest courseListRequest) {
         if (courseListRequest == null) {
             courseListRequest = new CourseListRequest();
         }
+        //将公司id参数传入dao
+        courseListRequest.setCompanyId(company_id);
+
         if (page <= 0) {
             page = 0;
         }
@@ -192,7 +196,7 @@ public class CourseService {
         QueryResult<CourseInfo> courseIncfoQueryResult = new QueryResult<>();
         courseIncfoQueryResult.setList(list);
         courseIncfoQueryResult.setTotal(total);
-        return new QueryResponseResult(CommonCode.SUCCESS, courseIncfoQueryResult);
+        return new QueryResponseResult<CourseInfo>(CommonCode.SUCCESS, courseIncfoQueryResult);
     }
 
     /**
