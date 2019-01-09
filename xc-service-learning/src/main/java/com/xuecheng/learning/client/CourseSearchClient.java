@@ -1,4 +1,4 @@
-package com.xuecheng.learning.config;
+package com.xuecheng.learning.client;
 
 import com.xuecheng.framework.domain.course.TeachplanMediaPub;
 import org.springframework.cloud.openfeign.FeignClient;
